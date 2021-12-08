@@ -41,6 +41,7 @@ class Slider {
         let img = this.el.getElementsByTagName("img")[0]
         this.url = this.urls[this.id]
         img.src = `/media/${this.url}`
+        img.className = "unselectable"
         this.checkImgSize(img)
     }
 

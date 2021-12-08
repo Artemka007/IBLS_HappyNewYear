@@ -27,6 +27,9 @@
         <div class="arrow-right unselectable" onclick="slider.next()">&gt;</div>
         <div class="close unselectable" onclick="slider.stopSlider()">&times;</div>
     </aside>
+    {% if request.user.is_superuser %}
+    <div style="margin: 10px"><a href="/admin">Admin panel</a><span style="margin:0 10px;">|</span><a href="/upload_view">Upload files</a></div>
+    {% endif %}
     <main class="galery">
         {% for i in pictures %}
         <div class="pik" onclick="slider.startSlider('{{i.src}}')">

@@ -3,8 +3,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 1500px;
-    height: 1000px;
+    width: 100%;
+    height: 100vh;
     border: #00000050 dashed 3px;
     font-size: 26px;
 }
