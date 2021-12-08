@@ -1,0 +1,10 @@
+.upload-files-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 1500px;
+    height: 1000px;
+    border: #00000050 dashed 3px;
+    font-size: 26px;
+}

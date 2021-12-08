@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload files</title>
+    <link rel="stylesheet" href="/static/css/upload.css">
+    <script type="text/javascript" src="/static/js/upload.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="upload-files-container" id="upload">
+        Upload files here
+    </div>
+    <input type="file" multiple onchange="submitFiles(this.files[0])" />
+    <script type="text/javascript"></script>
+    <script>
+        $(function() {
+            function submitFile(file) {
+                let formData = new FormData()
+                formData.append('file', file)
+                fetch("/upload/", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken")
+                    }
+                }).then(() => {
+                    console.log("Then...")
+                })
+            }
+
+            window.ondrop = e => {
+                console.log("DROP")
+                e.stopPropagation()
+                e.preventDefault()
+            }
+
+            window.ondragover = e => {
+                console.log("DRAGEND")
+                e.stopPropagation()
+                e.preventDefault()
+            }
+
+            function drop(e) {
+                e.preventDefault()
+                e.stopPropagation()
+                let dt = e.dataTransfer
+                let files = dt.files
+                for (let i = 0; i < files.length; i++) submitFile(files[i])
+            }
+
+            document.getElementById("upload").ondrop = e => {
+                drop(e)
+            }
+
+            function getCookie(name) {
+                let ca = document.cookie.split(';')
+                let caLen = ca.length
+                let cookieName = `${name}=`
+                let c
+                for (let i = 0; i < caLen; i += 1) {
+                    c = ca[i].replace(/^\s+/g, '')
+                    if (c.indexOf(cookieName) == 0) {
+                        return c.substring(cookieName.length, c.length)
+                    }
+                }
+                return ''
+            }
+        })
+    </script>
+</body>
+
+</html>

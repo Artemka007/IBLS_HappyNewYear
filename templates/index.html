@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/css/galery.css">
+    <link rel="stylesheet" href="/static/css/slider.css">
+</head>
+
+<body>
+    <aside class="slider" id="slider" style="display: none;">
+        <div class="arrow-left unselectable" onclick="slider.previous()">&lt;</div>
+        <div class="arrow-right unselectable" onclick="slider.next()">&gt;</div>
+        <div class="close unselectable" onclick="slider.stopSlider()">&times;</div>
+    </aside>
+    <main class="galery">
+        {% for i in pictures %}
+        <div class="pik" onclick="slider.startSlider('{{i.src}}')">
+            <img id="{{ i.id }}" class="pik__img" src="/media/{{ i.src }}" alt="" />
+            <div class="pik__author ">{{ i.author }}</div>
+        </div>
+        {% endfor %}
+    </main>
+    <script type="application/javascript" src="/static/js/galery.js"></script>
+    <script type="application/javascript">
+        let imgs = []
+        let urls = []
+        '{% for i in pictures %}'
+        imgs.push({
+            id: "{{i.pk}}",
+            src: "{{i.src}}",
+            author: "{{i.author}}"
+        })
+        urls.push("{{i.src}}")
+        '{% endfor %}'
+        slider = new Slider(imgs, urls)
+    </script>
+</body>
+
+</html>
